@@ -81,6 +81,41 @@ void test_bit_insert(void){
     free_bitVector(bv);
     printf("✔ test_bit_insert passed\n");
 }
+//тест установки значения бита в векторе
+void test_bit_set(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    bit_set(bv,10,1);
+    assert(bit_get(bv,10) == 1);
+    free_bitVector(bv);
+    printf("✔ test_bit_set passed\n");
+}
+//тест получения значения бита из вектора
+void test_bit_get(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    assert(bit_get(bv,10) == 0);
+    free_bitVector(bv);
+    printf("✔ test_bit_get passed\n");
+}
+//тест извлечения значения бита из вектора
+void test_bit_pop(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    bit_pop(bv);
+    assert(bv->length == 19);
+    free_bitVector(bv);
+    printf("✔ test_bit_pop passed\n");
+}
 
 int main(void)
 {
@@ -90,6 +125,9 @@ int main(void)
     test_clear_bitVector();
     test_bit_erase();
     test_bit_insert();
+    test_bit_set();
+    test_bit_get();
+    test_bit_pop();
 
     printf("\n✅ ALL TESTS PASSED\n");
     return 0;

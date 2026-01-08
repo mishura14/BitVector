@@ -74,9 +74,50 @@ void bit_append(bitVector *bv, uint8_t value)
 
 }
 
-//функция get
-// функция set
+//функция set
+void bit_set(bitVector *bv, size_t index, uint8_t value)
+{
+    if (!bv || !bv->data) return;
+    if (index >= bv->length) return;
+
+    size_t byte_index = index / 8;
+    size_t bit_index  = index % 8;
+
+    if (value)
+        bv->data[byte_index] |= (1 << bit_index);
+    else
+        bv->data[byte_index] &= ~(1 << bit_index);
+}
+
+// функция get
+uint8_t bit_get(const bitVector *bv, size_t index)
+{
+    if (!bv || !bv->data) return 0;
+    if (index >= bv->length) return 0;
+
+    size_t byte_index = index / 8;
+    size_t bit_index  = index % 8;
+    return (bv->data[byte_index] >> bit_index) & 1;
+}
+
 // функция pop
+uint8_t bit_pop(bitVector *bv)
+{
+    if (!bv || !bv->data) return 0;
+    if (bv->length == 0) return 0;
+
+    size_t last_index = bv->length - 1;
+    size_t byte_index = last_index / 8;
+    size_t bit_index  = last_index % 8;
+
+    uint8_t bit_val = (bv->data[byte_index] >> bit_index) & 1;
+
+
+    bv->length--;
+
+    return bit_val;
+}
+
 // фукция erase
 void bit_erase(bitVector *bv, size_t index)
 {

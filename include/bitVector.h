@@ -31,3 +31,12 @@ void bit_erase(bitVector *bv, size_t index);
 
 // функция insert
 void bit_insert(bitVector *bv, size_t index, uint8_t value);
+
+//функция set
+void bit_set(bitVector *bv, size_t index, uint8_t value);
+
+// функция get
+uint8_t bit_get(const bitVector *bv, size_t index);
+
+// функция pop
+uint8_t bit_pop(bitVector *bv);
