@@ -25,3 +25,9 @@ void bit_append(bitVector *bv, uint8_t value);
 
 // функция clear
 void clear_bitVector(bitVector *bv);
+
+// фукция erase
+void bit_erase(bitVector *bv, size_t index);
+
+// функция insert
+void bit_insert(bitVector *bv, size_t index, uint8_t value);

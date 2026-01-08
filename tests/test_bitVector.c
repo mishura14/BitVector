@@ -57,6 +57,30 @@ void test_clear_bitVector(void){
     free_bitVector(bv);
     printf("✔ test_clear_bitVector passed\n");
 }
+//тест удаление элемента из вектора
+void test_bit_erase(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    bit_erase(bv,10);
+    assert(bv->length == 19);
+    free_bitVector(bv);
+    printf("✔ test_bit_erase passed\n");
+}
+//тест добавление элемента в вектор
+void test_bit_insert(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    bit_insert(bv,10,1);
+    assert(bv->length == 21);
+    free_bitVector(bv);
+    printf("✔ test_bit_insert passed\n");
+}
 
 int main(void)
 {
@@ -64,6 +88,8 @@ int main(void)
     test_reserve_bitVector();
     test_bit_append();
     test_clear_bitVector();
+    test_bit_erase();
+    test_bit_insert();
 
     printf("\n✅ ALL TESTS PASSED\n");
     return 0;

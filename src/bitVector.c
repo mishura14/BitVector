@@ -78,6 +78,29 @@ void bit_append(bitVector *bv, uint8_t value)
 // функция set
 // функция pop
 // фукция erase
+void bit_erase(bitVector *bv, size_t index)
+{
+    if (!bv || !bv->data) return;
+    if (index >= bv->length) return;
+
+    for (size_t i = index; i < bv->length - 1; i++) {
+        size_t src_byte = (i + 1) / 8;
+        size_t src_bit  = (i + 1) % 8;
+
+        size_t dst_byte = i / 8;
+        size_t dst_bit  = i % 8;
+
+        uint8_t bit_val = (bv->data[src_byte] >> src_bit) & 1;
+
+        if (bit_val)
+            bv->data[dst_byte] |= (1 << dst_bit);
+        else
+            bv->data[dst_byte] &= ~(1 << dst_bit);
+    }
+
+    bv->length--;
+}
+
 // функция clear
 void clear_bitVector(bitVector *bv)
 {
@@ -88,3 +111,38 @@ void clear_bitVector(bitVector *bv)
 
 }
 // функция insert
+void bit_insert(bitVector *bv, size_t index, uint8_t value)
+{
+    if (!bv || !bv->data) return;
+    if (index > bv->length) return;
+
+    if (bv->length >= bv->capacity) {
+        size_t new_cap = (bv->capacity == 0) ? 8 : bv->capacity * 2;
+        reserve_bitVector(bv, new_cap);
+    }
+
+    for (size_t i = bv->length; i > index; i--) {
+        size_t src_byte = (i - 1) / 8;
+        size_t src_bit  = (i - 1) % 8;
+
+        size_t dst_byte = i / 8;
+        size_t dst_bit  = i % 8;
+
+        uint8_t bit_val = (bv->data[src_byte] >> src_bit) & 1;
+
+        if (bit_val)
+            bv->data[dst_byte] |= (1 << dst_bit);
+        else
+            bv->data[dst_byte] &= ~(1 << dst_bit);
+    }
+
+    size_t byte_index = index / 8;
+    size_t bit_index  = index % 8;
+
+    if (value)
+        bv->data[byte_index] |= (1 << bit_index);
+    else
+        bv->data[byte_index] &= ~(1 << bit_index);
+
+    bv->length++;
+}
