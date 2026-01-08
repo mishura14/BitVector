@@ -35,11 +35,21 @@ void test_reserve_bitVector(void)
     free_bitVector(bv);
     printf("✔ test_reserve_bitVector passed\n");
 }
-
+//тест добавление элемента в конец vectora
+void test_bit_append(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    free_bitVector(bv);
+    printf("✔ test_bit_append passed\n");
+}
 int main(void)
 {
     test_create_bitVector();
     test_reserve_bitVector();
+    test_bit_append();
 
     printf("\n✅ ALL TESTS PASSED\n");
     return 0;

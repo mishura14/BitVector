@@ -19,3 +19,6 @@ void free_bitVector(bitVector *bv);
 
 //увеличение битового вектора
 void reserve_bitVector(bitVector *bv, size_t new_capacity);
+
+//добавление бита в конец vectora
+void bit_append(bitVector *bv, uint8_t value);

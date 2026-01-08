@@ -52,3 +52,23 @@ void reserve_bitVector(bitVector *bv, size_t new_capacity)
     bv->data = new_data;
     bv->capacity = new_capacity;
 }
+//добавление бита в конец vectora
+void bit_append(bitVector *bv, uint8_t value)
+{
+    if(bv->length >= bv->capacity){
+        size_t new_cap = (bv->capacity = 0) ? 8 : bv->capacity * 2 ;
+        reserve_bitVector(bv,new_cap);
+    }
+    size_t bit = bv->length;
+    size_t byte = bit / 8;
+    size_t offset = bit % 8;
+
+    if(value){
+        bv->data[byte] |= (1 << offset);
+    }else{
+        bv->data[byte] &= ~(1 << offset);
+    }
+
+    bv->length++;
+
+}
