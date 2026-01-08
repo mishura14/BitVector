@@ -45,11 +45,25 @@ void test_bit_append(void){
     free_bitVector(bv);
     printf("✔ test_bit_append passed\n");
 }
+// тест очистка битового вектора
+void test_clear_bitVector(void){
+    bitVector *bv = create_bitVector(20);
+    for(size_t i = 0;i < 20;i++){
+        bit_append(bv,i % 2);
+    }
+    assert(bv->length == 20);
+    clear_bitVector(bv);
+    assert(bv->length == 0);
+    free_bitVector(bv);
+    printf("✔ test_clear_bitVector passed\n");
+}
+
 int main(void)
 {
     test_create_bitVector();
     test_reserve_bitVector();
     test_bit_append();
+    test_clear_bitVector();
 
     printf("\n✅ ALL TESTS PASSED\n");
     return 0;

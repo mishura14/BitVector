@@ -34,6 +34,7 @@ void free_bitVector(bitVector *bv)
     free(bv->data);
     free(bv);
 }
+
 //увеличение битового вектора
 void reserve_bitVector(bitVector *bv, size_t new_capacity)
 {
@@ -72,3 +73,18 @@ void bit_append(bitVector *bv, uint8_t value)
     bv->length++;
 
 }
+
+//функция get
+// функция set
+// функция pop
+// фукция erase
+// функция clear
+void clear_bitVector(bitVector *bv)
+{
+    if(!bv){
+        return;
+    }
+    bv->length = 0;
+
+}
+// функция insert
